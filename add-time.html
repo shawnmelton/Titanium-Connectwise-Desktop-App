@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Connectwise Desktop App :: Add Time</title>
+		<link rel="stylesheet" href="css/app.css" type="text/css">
+		<link rel="stylesheet" href="css/forms.css" type="text/css">
+		<link rel="stylesheet" href="css/jquery-ui.css" type="text/css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/account.js"></script>
+		<script type="text/javascript" src="js/status.js"></script>
+		<script type="text/javascript" src="js/time.js"></script>
+		<script type="text/javascript" src="js/blackout.js"></script>
+		<script type="text/javascript" src="js/tickets.js"></script>
+		<script type="text/javascript" src="js/validate.jquery.js"></script>
+	</head>
+	<body>
+		<header>
+			<a href="/dashboard.html">WebTeks Connectwise App</a>
+			<a id="back" href="/dashboard.html">&lt; Back</a>
+		</header>
+		<h1>Add Time</h1>
+		<div id="content">
+			<!-- Page Content -->
+			<form name="add-time" method="post" action="http://dev.cwapi.com/time/add" enctype="application/x-www-form-urlencoded">
+				<ol>
+					<li>
+						<label for="date">Date:</label>
+						<input type="text" name="date" id="date" class="required">
+					</li>
+					<li>
+						<label for="ticket">Ticket:</label>
+						<select name="ticket" id="ticket" class="required">
+							<option value="">-</option>
+						</select>
+					</li>
+					<li>
+						<label for="time">Time:</label>
+						<input type="text" name="time" id="time" class="required">
+					</li>
+					<li>
+						<label for="notes">Notes:</label>
+						<textarea name="notes" id="notes" class="required" style="height: 150px;"></textarea>
+					</li>
+				</ol>
+				<p><button type="submit">Submit</button></p>
+			</form>
+			<!-- End Page Content -->
+		</div>
+		<script type="text/javascript">
+			var myAccount = new CWAccount();
+		
+			/**
+			 * @desc Load all of the service tickets into the dropdown.
+			 */
+			var loadTickets = (function(){
+				var tickets = new Tickets();
+				$.each(tickets.get(myAccount.getUsername()), function(index, ticket) {
+					$("#ticket").append('<option value="'+ ticket.id +'">#'+ ticket.id +' '+ ticket.company +': '+ ticket.name +'</option>');
+				});
+			});
+		
+		
+			/**
+			 *  @desc Once we have validated that the form submission is valid,
+			 * then submit this user's time entry to CW.
+			 */
+			var submissionCallback = (function(){
+				var time = new TimeEntries();
+				time.add($("#date").val(), $("#ticket").val(), $("#time").val(), $("#notes").val());
+				
+				var status = new AppStatus();
+				status.set("success", "You have successfully added your time entry!");
+				location.href = "/index.html";
+			});
+			
+			
+			$(document).ready(function(){
+				loadTickets();
+				
+				$("form").validate({
+					ajax: true,
+					ajaxCallback: "submissionCallback"
+				});
+				
+				// Most of the time ppl will be adding time for current day.
+				var currDate = new Date();
+				$("#date").datepicker().val((currDate.getMonth()+1) +"/"+ currDate.getDate() +"/"+ currDate.getFullYear());
+			});
+		</script>
+	</body>
+</html>

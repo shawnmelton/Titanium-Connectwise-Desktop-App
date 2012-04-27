@@ -1,0 +1,63 @@
+form > ol {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+	form > ol > li { padding: 1% 0; }
+		form > ol > li > input,
+		form > ol > li > select,
+		form > ol > li > textarea {
+			padding: 1px 5px;
+			border: 1px solid #777;
+			border-radius: 5px;
+			width: 90%;
+			background: #fff;
+		}
+		form > ol > li > input,
+		form > ol > li > select { font-size: 125%; }
+		form > ol > li > input.error,
+		form > ol > li > select.error,
+		form > ol > li > textarea.error {
+			color: #c33;
+			border: 1px solid #600;
+			background: #fee;
+			background: -webkit-linear-gradient(#fee, #fff);
+			background: linear-gradient(#fee, #fff);
+		}
+		form > ol > li > label {
+			font-weight: bold;
+			display: block;
+			margin-bottom: 3px;
+		}
+form > p {
+	margin: 10px 0;
+	padding: 0 2%;
+}
+	form > p > button {
+		border: 0;
+		background: #eee;
+		color: #333;
+		padding: 5px 15px;
+		font-size: 110%;
+		font-weight: bold;
+		cursor: pointer;
+		border-radius: 5px;
+		border: 1px solid #aaa;
+	}
+	
+		#error-popup {
+			position: absolute;
+			top: 8%;
+			left: 20%;
+			width: 45%;
+			padding: 1% 2%;
+			font-size: 90%;
+			font-weight: bold;
+			color: #fff;
+			text-align: center;
+			border: 2px solid #600;
+			border-radius: 5px;
+			background: #a66;
+			-webkit-box-shadow: 0 0 5px #000;
+			box-shadow: 0 0 5px #000;
+		}

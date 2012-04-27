@@ -1,0 +1,40 @@
+#dash {
+	display: block;
+}
+	#dash > a {
+		display: block;
+		margin: 2% 2% 2% 0;
+		float: left;
+		width: 120px;
+		border-radius: 10px;
+		text-align: center;
+		background: #bbb;
+		padding: 110px 10px 0;
+		cursor: pointer;
+		text-decoration: none;
+		background-image: url(../img/clock.png);
+		background-position: 20px 5px;
+		background-repeat: no-repeat;
+		color: #367;
+		font-size: 115%;
+		text-shadow: 1px 1px 1px #aaa;
+	}
+	#dash > a#schedule { 
+		background-image: url(../img/calendar.png);
+		color: #383;
+	}
+	#dash > a#logout { 
+		background-image: url(../img/logout.png); 
+		color: #833;
+		margin-right: 0;
+	}
+	#dash > a#tickets { 
+		background-image: url(../img/tickets.png);
+		color: #c60;
+	}
+		#dash > a:hover { background-color: #ccc; }
+		#dash > a > span {
+			display: block;
+			font-weight: bold;
+			padding: 8px 0;
+		}

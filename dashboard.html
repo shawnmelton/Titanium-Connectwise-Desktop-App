@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Connectwise Desktop App :: Dashboard</title>
+		<link rel="stylesheet" href="css/app.css" type="text/css">
+		<link rel="stylesheet" href="css/dashboard.css" type="text/css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/account.js"></script>
+		<script type="text/javascript" src="js/status.js"></script>
+		<script type="text/javascript" src="js/time.js"></script>
+		<script type="text/javascript" src="js/blackout.js"></script>
+	</head>
+	<body>
+		<header><a>WebTeks Connectwise App</a></header>
+		<h1>Dashboard</h1>
+		<div id="content">
+			<!-- Page Content -->
+			<nav id="dash">
+				<a href="/add-time.html"><span>Add Time</span></a>
+				<a id="schedule" href="/my-schedule.html"><span>My Schedule</span></a>
+				<a id="tickets" href="/my-tickets.html"><span>My Tickets</span></a>
+				<a id="logout"><span>Sign Out</span></a>
+			</nav>
+			<!-- End Page Content -->
+		</div>
+		<footer>&copy; 2012 Web Teks, Inc. All Rights Reserved.</footer>
+		<script type="text/javascript"><!--
+			$("#logout").click(function(){
+				var myAccount = new CWAccount();
+				myAccount.logout();
+				
+				var status = new AppStatus();
+				status.set("notice", "You have successfully signed out.");
+				
+				location.href = "/index.html";
+			});
+			
+			
+			$(document).ready(function(){
+				// Application status message.
+				var status = new AppStatus();
+				if( status.get() != "" ) {
+					$("#content").prepend(status.get());
+				}
+				
+				// Check to see if there are any pending time entries.
+				var time = new TimeEntries();
+				if( Titanium.Network.online && (entries = time.getPending()) > 0 ) {
+					var overlay = new Blackout();
+					overlay.show("Syncing time entries ...");
+					time.push();
+					overlay.hide();
+				}
+			});
+		--></script>
+	</body>
+</html>

@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Connectwise Desktop App :: Login</title>
+		<link rel="stylesheet" href="css/app.css" type="text/css">
+		<link rel="stylesheet" href="css/forms.css" type="text/css">
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/database.js"></script>
+		<script type="text/javascript" src="js/account.js"></script>
+		<script type="text/javascript" src="js/status.js"></script>
+		<script type="text/javascript" src="js/blackout.js"></script>
+		<script type="text/javascript" src="js/validate.jquery.js"></script>
+		<script type="text/javascript">
+			var myAccount = new CWAccount();
+			if( myAccount.isLoggedIn() ) {
+				document.location.href = "/dashboard.html"; // Forward user to dashboard page.
+			}
+		</script>
+	</head>
+	<body>
+		<header><a>WebTeks Connectwise App</a></header>
+		<h1>Sign In</h1>
+		<div id="content">
+			<!-- Page Content -->
+			<form name="sign-in" method="post" action="http://dev.cwapi.com/members/authenticate" enctype="application/x-www-form-urlencoded">
+				<ol>
+					<li>
+						<label for="username">Username:</label>
+						<input type="text" name="username" id="username" class="required">
+					</li>
+					<li>
+						<label for="password">Password:</label>
+						<input type="password" name="password" id="password" class="required">
+					</li>
+				</ol>
+				<p><button>Sign In</button></p>
+			</form>
+			<script type="text/javascript">
+				/**
+				 *  @desc Once we have validated that the form submission is valid,
+				 * then make a request on the CW API to determine that the user credentials 
+				 * are valid.
+				 */
+				var submissionCallback = (function(){
+					var overlay = new Blackout();
+					overlay.show("Authenticating credentials ...");
+					
+					var form = $("form");
+					
+					var xhr = Titanium.Network.createHTTPClient();	
+					xhr.onload = (function(){
+						var response = $.parseJSON(this.responseText);
+						if( response.credentials == "Valid" ) {
+							// remember login so user doesn't have to login each visit.
+							myAccount.login($("#username").val());
+							
+							var status = new AppStatus();
+							status.set("success", "You have successfully signed in.");
+							
+							document.location.href = "/dashboard.html";
+						}
+					});
+					
+					xhr.open("POST", form.attr("action"));
+					xhr.send({
+						"username": $("#username").val(),
+						"password": $("#password").val()
+					});
+				});
+				
+				$(document).ready(function(){
+					// Validate 
+					$("form").validate({
+						ajax: true,
+						ajaxCallback: "submissionCallback"
+					});
+					
+					// Application status message.
+					var status = new AppStatus();
+					if( status.get() != "" ) {
+						$("#content").prepend(status.get());
+					}
+				});
+			</script>
+			<!-- End Page Content -->
+		</div>
+		<div id="blackout"></div>
+	</body>
+</html>

@@ -1,0 +1,130 @@
+html {
+	background-attachment: fixed;
+	font-size: 14px;
+	font-family: Arial;
+	height: 100%;
+	color: #eee;
+	background: #222;
+}
+	body {
+		position: relative;
+		font-family: Arial;
+		margin: 0;
+		padding: 0;
+	}
+		header, footer { display: block; }
+		header {
+			height: 40px;
+			line-height: 40px;
+			background: #337499 url(../img/header-grad.png) repeat-x 0 0;
+			border-bottom: 2px solid #369;
+			position: relative;
+			text-align: center;
+		}
+			header > a {
+				color: #fff;
+				text-shadow: 1px 1px 1px #000;
+				text-decoration: none;
+				font-weight: bold;
+			}
+			header > a#back {
+				position: absolute;
+				top: 12px;
+				left: 12px;
+				float: left;
+				display: block;
+				padding: 2px 5px;
+				background: #111;
+				font-size: 75%;
+				line-height: 16px;
+				border-radius: 5px;
+				text-transform: uppercase;	
+			}
+		h1 {
+			color: #fff;
+			text-shadow: 1px 1px 1px #000;
+			margin: 2% 7%;
+			font-size: 150%;
+			padding: 0 2%;
+			font-weight: normal;
+			text-align: left;
+		}
+		#content {
+			padding: 5% 6%;
+			background: #aaa;
+			overflow: hidden;
+			margin: 2% 8%;
+			border-radius: 10px;
+			border: 1px solid #777;
+		}
+			p.status-string {
+				background: #eee;
+				border: 1px solid #000;
+				border-radius: 10px;
+				font-weight: bold;
+				text-align: center;
+				padding: 5px 15px;
+				margin: 2% 8%;
+				font-size: 90%;
+				line-height: 16px;
+			}
+			p.success {
+				color: #383;
+				background: #efe;
+			}
+			p.error {
+				color: #833;
+				background: #fee;
+			}
+			p.notice {
+				color: #c60;
+				background: #fec;
+			}
+			p.status-string.tall { line-height: 24px; }
+		
+		footer {
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 35px;
+			background: #000;
+			border-top: 2px solid #555;
+			line-height: 35px;
+			color: #ccc;
+			overflow: hidden;
+			text-align: center;
+			font-size: 75%;
+		}
+		
+		br.clear {
+			clear: both;
+			height: 0;
+			overflow: hidden;
+		}
+		
+
+		#blackout, #blackout-msg {
+			display: none;
+			position: absolute;
+			top: 0;
+			left: 0;
+			height: 100%;
+			width: 100%;
+		}
+		#blackout {
+			background: #000;
+			opacity: 0.8;
+		}
+		#blackout-msg {
+			text-align: center;
+			padding: 20% 0 0;
+		}
+			#blackout-msg > h2 {
+				color: #eee;
+				text-shadow: 1px 1px 1px #777;
+				font-size: 150%;
+				font-weight: normal;
+			}
+			#blackout-msg > img { margin: 25px 0; }
+		
